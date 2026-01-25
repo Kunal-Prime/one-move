@@ -1,0 +1,145 @@
+Perfect! Let’s craft a **PRD (Product Requirement Document)** for **OneMove** with a **dark theme**, minimal but catchy interface, and some tasteful emojis in the results. I’ll make it hackathon-ready, clean, and actionable.
+
+---
+
+# 📝 OneMove – PRD (Dark Theme Edition)
+
+## 1️⃣ Product Overview
+
+**OneMove** helps users transform mental chaos into **one actionable step**.
+
+* Input: messy thoughts
+* Output: clarity in **3 structured bullets**
+* Theme: **Dark**, calming yet motivating
+* Goal: Immediate action, minimal distractions
+
+---
+
+## 2️⃣ Target Audience
+
+* Overthinkers
+* Students & creators
+* Anyone stuck in mental loops
+* Users who want **instant clarity**, not therapy or task management
+
+---
+
+## 3️⃣ Features
+
+### 3.1 Core Features
+
+| Feature                | Description                                    | Notes                                                                   |
+| ---------------------- | ---------------------------------------------- | ----------------------------------------------------------------------- |
+| **Text Input Box**     | Large, centered area for user to dump thoughts | Placeholder: *“Dump everything in your head. Messy is fine.”*           |
+| **Get OneMove Button** | Triggers AI output                             | Animation: subtle scale on hover                                        |
+| **Output Cards**       | Appears after input                            | 3 bullets: Core Problem, Control vs No Control, ONE Action (with emoji) |
+
+---
+
+### 3.2 Output Format
+
+| Card                          | Content                                    | Styling / Emoji Use                                                    |
+| ----------------------------- | ------------------------------------------ | ---------------------------------------------------------------------- |
+| **Core Problem**              | One concise line summarizing the key issue | Bold, white text                                                       |
+| **Control vs No Control**     | 2 bullets                                  | Emojis: ✅ for what user controls, ❌ for what they don’t                |
+| **One Action (Next 60 mins)** | Single actionable step                     | Highlighted card, accent color, optional ⚡ emoji to signal “do it now” |
+
+---
+
+## 4️⃣ UI / UX
+
+### 4.1 Layout
+
+* Full-screen dark background (#121212 / near black)
+* Central column, vertically aligned: Input → Button → Output
+* Minimal spacing: 40px padding around main container
+* No sidebars, no tabs, no distractions
+
+### 4.2 Colors
+
+| Element          | Color              |
+| ---------------- | ------------------ |
+| Background       | #121212            |
+| Input box        | #1E1E1E            |
+| Text             | #E0E0E0            |
+| Accent / Button  | #667EEA or #764BA2 |
+| Output highlight | #333344            |
+
+### 4.3 Fonts
+
+* **Heading:** Inter Semibold / Manrope Semibold, 24–28px
+* **Body:** Inter Regular / Manrope Regular, 16–18px
+* **Button:** Semi-bold, easy to read
+* No fancy/cursive fonts
+
+### 4.4 Animations
+
+* Button: scale 1.02x on hover
+* Output cards: fade + slide up (200–300ms)
+* Loading state: 3 pulsing dots or subtle line
+* No bouncing, spinning, or confetti
+
+---
+
+## 5️⃣ Interaction Flow
+
+1. User opens site → sees **input box + button**
+2. User types messy thoughts → clicks **Get OneMove**
+3. **Loading animation** (200–400ms)
+4. Output appears in **3 clean cards** with relevant emojis
+5. User reads → performs the ONE action
+
+Optional: copy button for each card
+
+---
+
+## 6️⃣ Technical Requirements
+
+| Component | Tech                          |
+| --------- | ----------------------------- |
+| Frontend  | HTML, CSS, JS (Replit)        |
+| Backend   | Node.js or Python             |
+| AI Logic  | Google AI Studio / Gemini API |
+| Hosting   | Replit (hackathon-friendly)   |
+
+---
+
+## 7️⃣ MVP Scope
+
+* Single dark-themed page
+* One input box
+* One button
+* 3 structured output cards with emojis
+* Minimal animation & interaction
+* No login, history, or additional features
+
+---
+
+## 8️⃣ Success Metrics (Hackathon)
+
+* Judge comprehension in ≤ 30 sec
+* Demo: Input → Output clarity → Action
+* Minimal clicks, minimal scrolling
+* Strong visual contrast & readability
+
+---
+
+## 9️⃣ Optional Enhancements (Post-MVP)
+
+* Copy/share buttons
+* Mobile responsiveness
+* Light mode toggle (if time permits)
+* AI personalization **without saving data**
+
+---
+
+If you want, I can **next create a pixel-perfect mockup** of this **dark theme interface** with:
+
+* Input box
+* Button
+* Output cards with emojis
+* Suggested font styles & colors
+
+It’ll be **exactly how it should look in Replit**.
+
+Do you want me to do that next?

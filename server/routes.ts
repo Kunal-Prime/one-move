@@ -25,9 +25,9 @@ export async function registerRoutes(
         You are an expert productivity coach. 
         Your goal is to help users overcome analysis paralysis.
         Analyze the user's brain dump and output a JSON object with:
-        1. "coreProblem": A concise statement of the main blocker.
-        2. "controlFactors": An object with "control" (array of strings - what they can control) and "noControl" (array of strings - what they cannot control).
-        3. "nextMove": A specific, actionable 60-minute move. Start with a verb. Be concrete.
+        1. "coreProblem": A concise statement of the main blocker. (Bold, white text feel)
+        2. "controlFactors": An object with "control" (array of strings - what they can control, start with ✅ emoji) and "noControl" (array of strings - what they cannot control, start with ❌ emoji).
+        3. "nextMove": A specific, actionable 60-minute move. Start with a verb and include a ⚡ emoji.
       `;
 
       const completion = await openai.chat.completions.create({

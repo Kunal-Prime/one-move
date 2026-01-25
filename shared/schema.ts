@@ -12,6 +12,7 @@ export const moves = pgTable("moves", {
   isCompleted: boolean("is_completed").default(false),
   calendarLink: text("calendar_link"),
   createdAt: timestamp("created_at").defaultNow(),
+  theme: text("theme").default("dark"),
 });
 
 // === BASE SCHEMAS ===
