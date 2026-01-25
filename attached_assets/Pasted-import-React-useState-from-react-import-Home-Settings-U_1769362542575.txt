@@ -1,0 +1,366 @@
+import React, { useState } from 'react';
+import { 
+  Home, 
+  Settings, 
+  User, 
+  Bell, 
+  Search, 
+  Menu, 
+  X, 
+  PieChart, 
+  MessageSquare, 
+  Activity,
+  Check,
+  ChevronRight
+} from 'lucide-react';
+
+// --- STYLES & THEME CONFIGURATION ---
+// This section simulates a "Design Token" system using Tailwind classes.
+// Change these strings to alter the global theme.
+
+const THEME = {
+  bg: {
+    main: "bg-slate-950",       // Deepest background (body)
+    panel: "bg-slate-900",      // Secondary background (cards, sidebar)
+    surface: "bg-slate-800",    // Tertiary background (inputs, active states)
+  },
+  text: {
+    primary: "text-slate-50",   // Main headings
+    secondary: "text-slate-400",// Subtitles, body text
+    muted: "text-slate-500",    // Placeholders, disabled
+    accent: "text-indigo-400",  // Highlight text
+  },
+  border: {
+    base: "border-slate-800",   // Default borders
+    focus: "border-indigo-500", // Focus rings
+  },
+  accent: {
+    primary: "bg-indigo-600 hover:bg-indigo-500",
+    secondary: "bg-slate-800 hover:bg-slate-700",
+    glow: "shadow-[0_0_20px_rgba(79,70,229,0.3)]", // Glow effect for primary actions
+  },
+  radius: "rounded-xl",         // Border radius global setting
+};
+
+// --- REUSABLE COMPONENT PRIMITIVES ---
+
+const Button = ({ children, variant = "primary", className = "", icon: Icon, ...props }) => {
+  const baseStyle = `px-4 py-2.5 font-medium transition-all duration-200 flex items-center justify-center gap-2 ${THEME.radius} active:scale-95 disabled:opacity-50 disabled:pointer-events-none`;
+  
+  const variants = {
+    primary: `${THEME.accent.primary} text-white ${THEME.accent.glow}`,
+    secondary: `${THEME.accent.secondary} ${THEME.text.primary} border ${THEME.border.base} hover:border-slate-600`,
+    ghost: `bg-transparent hover:bg-slate-800 ${THEME.text.secondary} hover:text-white`,
+    outline: `bg-transparent border ${THEME.border.base} ${THEME.text.secondary} hover:border-indigo-500 hover:text-indigo-400`,
+  };
+
+  return (
+    <button className={`${baseStyle} ${variants[variant]} ${className}`} {...props}>
+      {Icon && <Icon size={18} />}
+      {children}
+    </button>
+  );
+};
+
+const Card = ({ children, title, subtitle, className = "", action }) => (
+  <div className={`${THEME.bg.panel} border ${THEME.border.base} ${THEME.radius} p-6 flex flex-col ${className}`}>
+    {(title || subtitle) && (
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          {title && <h3 className={`text-lg font-semibold ${THEME.text.primary}`}>{title}</h3>}
+          {subtitle && <p className={`text-sm ${THEME.text.secondary} mt-1`}>{subtitle}</p>}
+        </div>
+        {action}
+      </div>
+    )}
+    {children}
+  </div>
+);
+
+const Input = ({ label, icon: Icon, placeholder }) => (
+  <div className="flex flex-col gap-2">
+    {label && <label className={`text-xs font-semibold uppercase tracking-wider ${THEME.text.muted}`}>{label}</label>}
+    <div className="relative group">
+      {Icon && (
+        <div className={`absolute left-3 top-1/2 -translate-y-1/2 ${THEME.text.muted} group-focus-within:text-indigo-400 transition-colors`}>
+          <Icon size={18} />
+        </div>
+      )}
+      <input 
+        type="text" 
+        placeholder={placeholder}
+        className={`w-full ${THEME.bg.surface} ${THEME.text.primary} placeholder:${THEME.text.muted} border ${THEME.border.base} focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-lg py-2.5 ${Icon ? 'pl-10' : 'pl-4'} pr-4 outline-none transition-all duration-200`}
+      />
+    </div>
+  </div>
+);
+
+const Badge = ({ children, color = "indigo" }) => {
+  const colorStyles = {
+    indigo: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+    emerald: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    amber: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    rose: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+  };
+  return (
+    <span className={`px-2.5 py-1 text-xs font-medium rounded-full border ${colorStyles[color] || colorStyles.indigo}`}>
+      {children}
+    </span>
+  );
+};
+
+// --- LAYOUT COMPONENTS ---
+
+const SidebarItem = ({ icon: Icon, label, active, collapsed }) => (
+  <button className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group ${active ? 'bg-indigo-600/10 text-indigo-400' : `${THEME.text.secondary} hover:bg-slate-800 hover:text-slate-100`}`}>
+    <Icon size={20} className={active ? 'text-indigo-400' : 'group-hover:text-white'} />
+    {!collapsed && <span className="font-medium text-sm">{label}</span>}
+    {active && !collapsed && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-400 shadow-[0_0_8px_rgba(99,102,241,0.6)]" />}
+  </button>
+);
+
+export default function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activeTab, setActiveTab] = useState('dashboard');
+
+  return (
+    <div className={`min-h-screen ${THEME.bg.main} text-slate-200 font-sans selection:bg-indigo-500/30 selection:text-indigo-200 flex overflow-hidden`}>
+      {/* Mobile Backdrop */}
+      <div 
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-20 lg:hidden transition-opacity ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={() => setSidebarOpen(false)}
+      />
+
+      {/* Sidebar */}
+      <aside 
+        className={`fixed lg:static inset-y-0 left-0 z-30 ${THEME.bg.panel} border-r ${THEME.border.base} transition-all duration-300 flex flex-col
+        ${sidebarOpen ? 'w-64 translate-x-0' : 'w-0 lg:w-20 -translate-x-full lg:translate-x-0'}`}
+      >
+        {/* Logo Area */}
+        <div className="h-16 flex items-center px-6 border-b border-slate-800/50">
+          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center mr-3 shadow-lg shadow-indigo-500/20">
+            <Activity size={20} className="text-white" />
+          </div>
+          <span className={`font-bold text-lg tracking-tight ${!sidebarOpen ? 'lg:hidden' : ''} text-white`}>
+            Nexus<span className="text-indigo-400">UI</span>
+          </span>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex-1 overflow-y-auto py-6 px-3 space-y-1">
+          <SidebarItem icon={Home} label="Dashboard" active={activeTab === 'dashboard'} collapsed={!sidebarOpen && window.innerWidth >= 1024} />
+          <SidebarItem icon={PieChart} label="Analytics" collapsed={!sidebarOpen && window.innerWidth >= 1024} />
+          <SidebarItem icon={MessageSquare} label="Messages" collapsed={!sidebarOpen && window.innerWidth >= 1024} />
+          <div className="my-4 border-t border-slate-800/50 mx-2" />
+          <SidebarItem icon={User} label="Profile" collapsed={!sidebarOpen && window.innerWidth >= 1024} />
+          <SidebarItem icon={Settings} label="Settings" collapsed={!sidebarOpen && window.innerWidth >= 1024} />
+        </div>
+
+        {/* User Footer */}
+        <div className={`p-4 border-t border-slate-800/50 ${!sidebarOpen ? 'lg:hidden' : ''}`}>
+          <div className={`flex items-center gap-3 p-2 rounded-lg ${THEME.bg.surface} border ${THEME.border.base}`}>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-white truncate">Demo User</p>
+              <p className="text-xs text-slate-400 truncate">Pro Plan</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col h-screen overflow-hidden relative">
+        
+        {/* Header */}
+        <header className={`h-16 ${THEME.bg.main}/80 backdrop-blur-md border-b ${THEME.border.base} flex items-center justify-between px-4 lg:px-8 z-10 sticky top-0`}>
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className={`p-2 rounded-lg ${THEME.text.secondary} hover:bg-slate-800 lg:hidden`}
+            >
+              <Menu size={20} />
+            </button>
+            <div className="hidden md:flex items-center text-sm text-slate-500">
+              <span>App</span>
+              <ChevronRight size={14} className="mx-2" />
+              <span className="text-slate-200">Dashboard</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:block relative w-64 mr-2">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+              <input 
+                type="text" 
+                placeholder="Search..." 
+                className={`w-full bg-slate-900 border border-slate-800 rounded-full py-1.5 pl-9 pr-4 text-sm text-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all`}
+              />
+            </div>
+            <button className={`p-2 relative rounded-full hover:bg-slate-800 ${THEME.text.secondary} transition-colors`}>
+              <Bell size={20} />
+              <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-slate-950"></span>
+            </button>
+          </div>
+        </header>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-4 lg:p-8 pb-20">
+          <div className="max-w-6xl mx-auto space-y-8">
+            
+            {/* Header Section */}
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">Design System</h1>
+              <p className={`${THEME.text.secondary}`}>A showcase of the theme components derived from your request.</p>
+            </div>
+
+            {/* Stats Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className={`${THEME.text.secondary} text-sm font-medium`}>Total Revenue</p>
+                    <h4 className="text-2xl font-bold text-white mt-2">$45,231.89</h4>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Badge color="emerald">+20.1%</Badge>
+                      <span className="text-xs text-slate-500">vs last month</span>
+                    </div>
+                  </div>
+                  <div className={`p-3 rounded-lg ${THEME.bg.surface} text-indigo-400`}>
+                    <Activity size={24} />
+                  </div>
+                </div>
+              </Card>
+
+              <Card>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className={`${THEME.text.secondary} text-sm font-medium`}>Active Users</p>
+                    <h4 className="text-2xl font-bold text-white mt-2">2,350</h4>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Badge color="indigo">+180</Badge>
+                      <span className="text-xs text-slate-500">new today</span>
+                    </div>
+                  </div>
+                  <div className={`p-3 rounded-lg ${THEME.bg.surface} text-indigo-400`}>
+                    <User size={24} />
+                  </div>
+                </div>
+              </Card>
+
+              <Card>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className={`${THEME.text.secondary} text-sm font-medium`}>Bounce Rate</p>
+                    <h4 className="text-2xl font-bold text-white mt-2">42.3%</h4>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Badge color="rose">-4.5%</Badge>
+                      <span className="text-xs text-slate-500">improved</span>
+                    </div>
+                  </div>
+                  <div className={`p-3 rounded-lg ${THEME.bg.surface} text-indigo-400`}>
+                    <PieChart size={24} />
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* Components Showcase */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              
+              {/* Buttons & Badges */}
+              <Card title="Interactive Elements" subtitle="Button variants and state indicators">
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <p className={`text-xs font-semibold uppercase tracking-wider ${THEME.text.muted}`}>Buttons</p>
+                    <div className="flex flex-wrap gap-3">
+                      <Button>Primary Action</Button>
+                      <Button variant="secondary">Secondary</Button>
+                      <Button variant="outline">Outline</Button>
+                      <Button variant="ghost" icon={Settings}>Ghost</Button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <p className={`text-xs font-semibold uppercase tracking-wider ${THEME.text.muted}`}>Badges</p>
+                    <div className="flex flex-wrap gap-3">
+                      <Badge color="indigo">Default</Badge>
+                      <Badge color="emerald">Success</Badge>
+                      <Badge color="amber">Warning</Badge>
+                      <Badge color="rose">Error</Badge>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Form Elements */}
+              <Card title="Form Inputs" subtitle="Standardized input fields with focus states">
+                <div className="space-y-5">
+                  <Input label="Username" placeholder="Enter your username" icon={User} />
+                  <Input label="Search Query" placeholder="Search database..." icon={Search} />
+                  
+                  {/* Fake Select Box */}
+                  <div className="flex flex-col gap-2">
+                    <label className={`text-xs font-semibold uppercase tracking-wider ${THEME.text.muted}`}>Role</label>
+                    <div className={`w-full ${THEME.bg.surface} border ${THEME.border.base} rounded-lg py-2.5 px-4 flex justify-between items-center cursor-pointer hover:border-slate-600 transition-colors`}>
+                      <span className={THEME.text.primary}>Administrator</span>
+                      <ChevronRight size={16} className={`rotate-90 ${THEME.text.muted}`} />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Typography Preview */}
+              <Card title="Typography" subtitle="Inter font family hierarchy" className="lg:col-span-2">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <h1 className="text-4xl font-bold text-white">Heading 1</h1>
+                    <h2 className="text-3xl font-bold text-white">Heading 2</h2>
+                    <h3 className="text-2xl font-semibold text-white">Heading 3</h3>
+                    <h4 className="text-xl font-medium text-white">Heading 4</h4>
+                  </div>
+                  <div className="space-y-4">
+                    <p className={`${THEME.text.secondary} leading-relaxed`}>
+                      <strong className="text-slate-200">Body Text:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                      Ut enim ad minim veniam, quis nostrud <span className="text-indigo-400 cursor-pointer hover:underline">exercitation</span> ullamco laboris nisi ut aliquip.
+                    </p>
+                    <p className={`${THEME.text.muted} text-sm leading-relaxed`}>
+                      <strong className="text-slate-300">Small / Muted:</strong> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                      Excepteur sint occaecat cupidatat non proident.
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+      {/* Tailwind Style Injection for this Preview */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #334155; 
+          border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #475569; 
+        }
+      `}</style>
+    </div>
+  );
+}
