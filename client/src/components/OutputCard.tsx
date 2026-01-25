@@ -79,14 +79,6 @@ export function OutputCard({ move, onComplete, isCompleting }: OutputCardProps) 
       {/* Actions */}
       <div className="flex flex-col sm:flex-row gap-3 pt-2">
         <button
-          onClick={() => window.alert("Calendar integration coming soon!")}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md border-2 border-primary text-primary font-medium hover:bg-primary hover:text-white transition-colors duration-200"
-        >
-          <Calendar className="w-4 h-4" />
-          Add to Calendar
-        </button>
-        
-        <button
           onClick={onComplete}
           disabled={isCompleting || move.isCompleted}
           className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-[#FAFAFA] border-2 border-transparent text-[#48BB78] font-medium hover:bg-[#F0FFF4] hover:border-[#48BB78]/20 transition-all duration-200 disabled:opacity-50"
