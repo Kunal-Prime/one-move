@@ -1,38 +1,36 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { db } from "./db";
+import { moves, type Move, type CreateMoveRequest, type AnalysisResponse } from "@shared/schema";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  createMove(move: CreateMoveRequest, analysis: AnalysisResponse): Promise<Move>;
+  getMove(id: number): Promise<Move | undefined>;
+  completeMove(id: number): Promise<Move | undefined>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async createMove(request: CreateMoveRequest, analysis: AnalysisResponse): Promise<Move> {
+    const [move] = await db.insert(moves).values({
+      brainDump: request.brainDump,
+      coreProblem: analysis.coreProblem,
+      controlFactors: JSON.stringify(analysis.controlFactors),
+      nextMove: analysis.nextMove,
+    }).returning();
+    return move;
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getMove(id: number): Promise<Move | undefined> {
+    const [move] = await db.select().from(moves).where(eq(moves.id, id));
+    return move;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async completeMove(id: number): Promise<Move | undefined> {
+    const [move] = await db.update(moves)
+      .set({ isCompleted: true })
+      .where(eq(moves.id, id))
+      .returning();
+    return move;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
