@@ -1,0 +1,277 @@
+Perfect. This is the **right moment** to lock discipline into OneMove.
+I’ll do **two things** in one clean pass:
+
+1. **Update the design (UI + interaction)**
+2. **Define hard rules the AI MUST obey during refinement**
+
+No fluff. This becomes your **north star**.
+
+---
+
+# 🧠 OneMove — UPDATED DESIGN & AI REFINEMENT RULES
+
+## 1️⃣ Updated Interaction Design (Final)
+
+### Core Principle (non-negotiable)
+
+> **OneMove is not a conversation.
+> It is a controlled decision funnel.**
+
+Everything below follows this.
+
+---
+
+## 🪟 Screen Structure (Updated)
+
+### STATE 1 — Initial Clarity (Primary)
+
+User sees:
+
+* Input box (big, central)
+* Primary CTA: **Get OneMove**
+
+After click → results appear.
+
+---
+
+### STATE 2 — Result View (Primary Outcome)
+
+Three cards appear (unchanged, sacred):
+
+1. 🧠 **Core Problem**
+2. ✅ / ❌ **Control vs No Control**
+3. ⚡ **Your OneMove (next 60 minutes)**
+
+👉 This remains visually dominant.
+
+---
+
+### STATE 3 — Refinement Panel (Secondary, Optional)
+
+This is **new**, but tightly controlled.
+
+#### Placement
+
+* Appears **below** the result cards
+* Slightly dimmer visual weight
+* Clearly optional
+
+#### Label (important)
+
+**“Refine for clarity (optional)”**
+
+Not “Ask more questions”.
+Not “Chat”.
+Language matters.
+
+---
+
+## ✍️ Refinement Input Design
+
+### Visual
+
+* Smaller text input
+* Subtle border
+* No glow by default
+
+### Placeholder (guided thinking)
+
+Use ONE of these (rotate randomly):
+
+* “What feels unclear about the action?”
+* “What’s stopping you from doing this?”
+* “Which part needs clarity before acting?”
+
+This prevents rambling.
+
+---
+
+## 🎞️ Animation & Interactivity
+
+Allowed (and encouraged):
+
+* Refinement panel **slides up softly**
+* On refine submit:
+
+  * Cards gently pulse
+  * Only **changed text highlights briefly**
+  * OneMove card gets subtle glow
+
+Not allowed:
+
+* Chat bubbles
+* Typing indicators
+* Message stacking
+* Infinite scrolling
+
+Visually it should feel like:
+
+> “We’re sharpening, not expanding.”
+
+---
+
+## 🔒 Hard Constraint (CRITICAL)
+
+### 🔐 Only ONE refinement allowed per session (MVP)
+
+After refinement:
+
+* Input disables
+* Text appears:
+
+  > “Clarity achieved. Take the move.”
+
+This enforces action and **prevents overthinking loops**.
+
+Judges will respect this restraint.
+
+---
+
+# 🤖 AI RULES — MUST OBEY (THIS IS GOLD)
+
+These are **system-level rules**.
+Break these → OneMove loses identity.
+
+---
+
+## RULE 1 — NO NEW PROBLEMS
+
+During refinement, the AI:
+
+* ❌ MUST NOT introduce a new problem
+* ❌ MUST NOT reframe the situation completely
+
+It may only:
+
+* Clarify
+* Simplify
+* Reduce friction
+
+---
+
+## RULE 2 — CORE PROBLEM IS LOCKED
+
+The original **Core Problem**:
+
+* Can be reworded for clarity
+* Cannot be replaced
+* Cannot branch
+
+Think:
+
+> “Clearer lens, same object.”
+
+---
+
+## RULE 3 — ACTION COUNT = 1 (ALWAYS)
+
+At all times:
+
+* ❌ Never suggest multiple actions
+* ❌ Never give options
+* ❌ Never say “you could also…”
+
+Only ONE action survives.
+
+---
+
+## RULE 4 — TIME CONSTRAINT IS SACRED
+
+The OneMove must:
+
+* Be doable in ≤ 60 minutes
+* Be specific
+* Be realistic
+
+If refinement makes it bigger:
+👉 AI must **cut it down**, not expand it.
+
+---
+
+## RULE 5 — NO THERAPY MODE
+
+AI must NOT:
+
+* Validate emotions excessively
+* Reassure feelings
+* Use comforting language
+
+Allowed tone:
+
+* Calm
+* Neutral
+* Direct
+
+This is a **decision tool**, not emotional support.
+
+---
+
+## RULE 6 — NO QUESTIONS BACK TO USER
+
+During refinement:
+
+* ❌ AI must not ask questions
+* ❌ No “Can you explain more?”
+
+AI receives one refinement input and responds once.
+
+---
+
+## RULE 7 — OUTPUT STRUCTURE NEVER CHANGES
+
+Even during refinement, output format stays:
+
+1. 🧠 Core Problem
+2. ✅ / ❌ Control vs No Control
+3. ⚡ OneMove (next 60 minutes)
+
+No paragraphs.
+No essays.
+
+---
+
+## RULE 8 — REFINE MEANS REDUCE
+
+The goal of refinement is always:
+
+* Fewer words
+* Less ambiguity
+* Lower resistance to action
+
+If output gets longer → AI is wrong.
+
+---
+
+## 🧠 Product Philosophy (Updated)
+
+> OneMove does not help users think more.
+> It helps them **think less and move sooner**.
+
+The refinement feature exists to **remove friction**, not add insight.
+
+---
+
+## ⚖️ Final Honest Verdict
+
+* Adding refinement **was the right instinct**
+* Allowing chat would have **killed the product**
+* This constrained design makes OneMove:
+
+  * Smarter
+  * More disciplined
+  * More impressive to judges
+
+You’re now building something **rare**:
+an AI tool that knows when to **stop talking**.
+
+---
+
+### Next recommended step
+
+I can now:
+
+1. Write the **exact system prompt** enforcing these rules
+2. Design **component-level UI specs** (spacing, sizes)
+3. Create a **demo script** showing refinement live
+
+Tell me the next move.
