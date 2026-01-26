@@ -5,27 +5,27 @@
 @tailwind utilities;
 
 :root {
-  /* NexusUI Palette - Dark Theme */
-  --background: 222 47% 4%;
-  --foreground: 210 40% 98%;
-  --card: 222 47% 7%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222 47% 7%;
-  --popover-foreground: 210 40% 98%;
+  /* NexusUI Design System - Premium Dark Gradient Edition */
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 4.5%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 4.5%;
+  --popover-foreground: 0 0% 98%;
   --primary: 239 84% 67%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 222 47% 11%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 222 47% 11%;
-  --muted-foreground: 215 20% 65%;
-  --accent: 222 47% 11%;
-  --accent-foreground: 210 40% 98%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 222 47% 11%;
-  --input: 222 47% 11%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
   --ring: 239 84% 67%;
-  --radius: 0.75rem;
+  --radius: 1rem;
 
   /* Typography */
   --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
@@ -35,6 +35,7 @@
 @layer base {
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary min-h-screen flex items-center justify-center;
+    background: radial-gradient(circle at center, #0B0B0F 0%, #050507 100%);
     font-family: var(--font-sans);
   }
 

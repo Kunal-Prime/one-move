@@ -1,0 +1,315 @@
+Got it. I’ll do this **properly and cleanly**:
+
+* ✅ **Extract visual DNA only** (theme, layout logic, colors, fonts, motion)
+* ❌ **No copying text, no copying structure verbatim**
+* ✅ Then generate a **new PRD for OneMove**, inspired by the *style*, not the product
+
+I’ll be precise and honest.
+
+---
+
+# 🔍 UI STYLE EXTRACTION (from the reference UI)
+
+## 1️⃣ Overall Visual Personality
+
+**Mood**
+
+* Premium
+* Calm
+* Confident
+* Modern AI product
+* Slightly futuristic, but not playful
+
+**Feeling it gives the user**
+
+> “This is safe, powerful, and well thought out.”
+
+This is exactly the **right emotional direction** for OneMove.
+
+---
+
+## 2️⃣ Color System (Extracted)
+
+### 🌑 Background
+
+* Deep dark gradient (not flat black)
+* Dominant tones:
+
+  * Near-black
+  * Dark navy / dark purple
+* Subtle cosmic / depth feel
+
+✅ **Why it works**
+Dark gradients feel less harsh and more “thinking-friendly” than pure black.
+
+---
+
+### 🎨 Accent Colors
+
+* Soft neon blue
+* Muted purple / pink blend
+* Accent is **used sparingly**, not everywhere
+
+Usage pattern:
+
+* Primary CTA button
+* Key highlighted word
+* Active states
+
+❌ No rainbow usage
+❌ No loud saturation
+
+---
+
+## 3️⃣ Typography System (Extracted)
+
+### Font Style (not exact font)
+
+* Sans-serif
+* Clean
+* Rounded but professional
+* Large headings
+* Generous line spacing
+
+**Typography hierarchy**
+
+* Very large hero heading
+* Medium subheading
+* Small helper text
+* Clear CTA labels
+
+✅ Reads easily on dark background
+✅ Feels premium, not generic
+
+---
+
+## 4️⃣ Button Design Language
+
+### Primary Button
+
+* Rounded pill shape
+* Solid accent color
+* Soft glow / shadow
+* Clear hover state
+
+**Button psychology**
+
+> “This is the main thing you should do.”
+
+### Secondary Button
+
+* Outline or transparent
+* Same shape
+* Lower visual weight
+
+---
+
+## 5️⃣ Layout Principles
+
+* Centered hero section
+* Clear visual hierarchy
+* Strong whitespace (even on dark UI)
+* No clutter
+* One dominant action
+
+This is critical:
+**One primary action per screen.**
+
+---
+
+## 6️⃣ Animation & Motion Style
+
+* Smooth fade-ins
+* Gentle scaling
+* No sharp movements
+* No bouncy effects
+
+Motion feels:
+
+* Slow enough to feel premium
+* Fast enough to not annoy
+
+---
+
+## 7️⃣ Icon & Emoji Philosophy
+
+* Icons minimal
+* Emojis (if used) are:
+
+  * Purposeful
+  * Sparse
+  * Reinforcing meaning, not decoration
+
+---
+
+# 📄 PRD — OneMove (Inspired UI Edition)
+
+## Product Name
+
+**OneMove**
+
+---
+
+## 1. Product Objective
+
+OneMove helps users reduce mental overload by transforming unstructured thoughts into **one clear, immediate action**.
+
+The product prioritizes **clarity, calmness, and decisiveness**.
+
+---
+
+## 2. Design Philosophy
+
+* Dark, immersive interface
+* Premium AI-product feel
+* Calm over stimulation
+* Minimal choices
+* One dominant action per screen
+
+---
+
+## 3. Visual Design Requirements
+
+### Theme
+
+* Dark gradient background (deep charcoal → muted purple/blue)
+* No flat black
+* Soft depth effect
+
+### Color Palette
+
+* Primary accent: Soft neon blue or purple
+* Text: Off-white / light gray
+* Secondary elements: Muted grays
+* Highlight color used sparingly
+
+---
+
+## 4. Typography
+
+* Modern sans-serif font family
+* High readability on dark backgrounds
+* Clear hierarchy:
+
+  * Large headline
+  * Supporting subtext
+  * Small helper text
+
+No decorative or playful fonts allowed.
+
+---
+
+## 5. Layout Structure
+
+### Main Screen
+
+* Center-aligned content
+* Large input area as focal point
+* One primary CTA button
+* No sidebar
+* No multi-column layout
+
+---
+
+## 6. Interaction Flow
+
+1. User lands on page
+2. Sees calm, dark interface with single input focus
+3. User enters thoughts
+4. Clicks primary CTA
+5. Subtle loading animation
+6. Results appear as structured cards
+7. Interaction ends
+
+---
+
+## 7. Output Presentation
+
+Results are shown in **three clean cards**:
+
+1. Core issue summary
+2. Control vs non-control clarity
+3. Single actionable step (highlighted)
+
+Cards use:
+
+* Slight elevation
+* Soft borders
+* Clear spacing
+* Optional emojis for reinforcement only
+
+---
+
+## 8. Buttons & Actions
+
+### Primary CTA
+
+* Pill-shaped
+* Solid accent color
+* Soft glow or shadow
+* Subtle hover animation
+
+### Secondary Actions
+
+* Outline style
+* Lower visual priority
+
+---
+
+## 9. Motion & Animation
+
+* Fade + slide transitions
+* Smooth hover states
+* No playful animations
+* Motion must feel intentional
+
+---
+
+## 10. Accessibility
+
+* High contrast text
+* Readable font sizes
+* Keyboard-friendly interactions
+
+---
+
+## 11. Non-Goals
+
+* No dashboards
+* No multiple modes
+* No persistent chat
+* No data history
+* No user profiling
+
+---
+
+## 12. Success Criteria
+
+* User understands value in < 10 seconds
+* User feels calm enough to type honestly
+* User leaves with one clear action
+* Judges perceive polish and restraint
+
+---
+
+## Final Honest Take 🧠
+
+This UI style is **excellent** for OneMove **if** you:
+
+* Keep it minimal
+* Don’t add extra sections
+* Don’t turn it into a “cool AI landing page”
+
+You’re borrowing **visual confidence**, not complexity.
+
+---
+
+### Next step (recommended)
+
+I can now:
+
+* Translate this into **exact CSS tokens** (colors, radius, shadows)
+* Design the **OneMove homepage wireframe**
+* Or define **component-level specs** (input, card, button)
+
+Tell me the next move — and yes, this UI choice is a **good call** 🔥

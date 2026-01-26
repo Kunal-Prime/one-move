@@ -18,8 +18,8 @@ export function OutputCard({ move, onComplete, isCompleting }: OutputCardProps) 
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="w-full max-w-[680px] mt-8 bg-card border border-border rounded-xl p-8 shadow-[0_0_20px_rgba(79,70,229,0.1)]"
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full max-w-[680px] mt-8 bg-card/50 backdrop-blur-xl border border-white/5 rounded-2xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
     >
       {/* Core Problem Section */}
       <div className="mb-8">
@@ -81,7 +81,7 @@ export function OutputCard({ move, onComplete, isCompleting }: OutputCardProps) 
         <button
           onClick={onComplete}
           disabled={isCompleting || move.isCompleted}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all duration-200 active:scale-95 disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all duration-300 active:scale-95 disabled:opacity-50"
         >
           <Check className="w-4 h-4" />
           {move.isCompleted ? "Completed" : "Mark Done"}
