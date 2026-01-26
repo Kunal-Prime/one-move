@@ -134,6 +134,6 @@
            hover:bg-indigo-500 hover:scale-[1.05] active:scale-95
            shadow-[0_0_40px_rgba(99,102,241,0.3)]
            disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
-           transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1);
+           transition-all duration-500 ease-out;
   }
 }
