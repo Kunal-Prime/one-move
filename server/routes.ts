@@ -54,7 +54,7 @@ export async function registerRoutes(
       const completion = await openai.chat.completions.create({
         model: "gpt-4o",
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: SYSTEM_PROMPT + "\n\nIMPORTANT: Your response must be a valid JSON object." },
           { role: "user", content: input.brainDump }
         ],
         response_format: { type: "json_object" },

@@ -92,7 +92,7 @@ export function OutputCard({ move, onComplete, isCompleting, onRestart }: Output
       <div className="flex flex-wrap items-center gap-4">
         <button
           onClick={onComplete}
-          disabled={isCompleting || move.isCompleted}
+          disabled={isCompleting || (move.isCompleted ?? false)}
           className="flex-1 min-w-[180px] inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-[0_0_30px_rgba(37,99,235,0.3)] transition-all duration-300 active:scale-95 disabled:opacity-50"
         >
           <Check className="w-5 h-5" />
