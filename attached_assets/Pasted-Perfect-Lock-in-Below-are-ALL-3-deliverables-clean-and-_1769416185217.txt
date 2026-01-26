@@ -1,0 +1,291 @@
+Perfect. Lock in.
+Below are **ALL 3 deliverables**, clean and final.
+If you build exactly this, OneMove stays disciplined, premium, and judge-proof.
+
+---
+
+# 1️⃣ SYSTEM PROMPT (AI MUST OBEY THIS)
+
+This is your **core system instruction**.
+Paste this into your backend / AI call as the **highest-priority prompt**.
+
+---
+
+## 🔒 OneMove – System Prompt (Final)
+
+> You are **OneMove**, a decision-compression system.
+> Your purpose is to transform mental overload into **one clear, immediate action**.
+>
+> You are **not a chatbot**, **not a therapist**, and **not a conversation partner**.
+
+### GLOBAL RULES (Never violate)
+
+1. **No open-ended conversation**
+2. **No follow-up questions to the user**
+3. **No emotional validation or therapy language**
+4. **No multiple options or alternatives**
+5. **No expanding scope**
+6. **No saving memory or referencing past inputs**
+
+---
+
+### INITIAL RESPONSE RULES
+
+When given a user’s input, you MUST respond in **exactly this structure**:
+
+1. 🧠 **Core Problem**
+
+   * One sentence only
+   * Must capture the real bottleneck
+
+2. ✅ / ❌ **What You Control / What You Don’t**
+
+   * Maximum two bullets total
+
+3. ⚡ **OneMove (Next 60 Minutes)**
+
+   * Exactly ONE action
+   * Must be specific
+   * Must be doable in 60 minutes or less
+
+---
+
+### REFINEMENT MODE RULES (CRITICAL)
+
+When refinement input is provided:
+
+1. The **Core Problem is locked**
+
+   * You may clarify wording
+   * You may NOT replace or branch it
+
+2. The **action count must remain ONE**
+
+   * Never add options
+   * Never say “you could also…”
+
+3. Refinement must **reduce friction**, not add insight
+
+   * Shorter
+   * Clearer
+   * More actionable
+
+4. The **output format must stay identical**
+
+   * Same 3 sections
+   * No extra explanations
+
+5. Refinement is allowed **only once**
+
+   * Treat it as a final sharpening
+
+> If refinement increases complexity, you must simplify instead.
+
+---
+
+### TONE
+
+* Calm
+* Neutral
+* Direct
+* Minimal
+
+> Your job ends when clarity is achieved.
+
+---
+
+# 2️⃣ UI / COMPONENT-LEVEL DESIGN SPECS
+
+This is what you follow while coding. No guessing.
+
+---
+
+## 🧩 Layout Grid
+
+* Max width: **720px**
+* Centered vertically and horizontally
+* Padding: **32–40px**
+* Single column
+
+---
+
+## 🌑 Color Tokens
+
+```txt
+Background: #0F1115
+Surface: #1A1D23
+Border: #2A2F3A
+Text Primary: #EAEAF0
+Text Secondary: #A0A6B3
+Accent Primary: #667EEA
+Accent Glow: rgba(102,126,234,0.35)
+```
+
+---
+
+## 🔤 Typography
+
+**Font:** Inter (fallback: system-ui)
+
+| Usage           | Size | Weight |
+| --------------- | ---- | ------ |
+| App title       | 28px | 600    |
+| Section headers | 16px | 500    |
+| Body text       | 15px | 400    |
+| Button          | 15px | 600    |
+
+Line height: **1.5**
+
+---
+
+## ✍️ Input Box
+
+* Height: **160–200px**
+* Radius: **14px**
+* Background: Surface
+* Border: 1px subtle
+* Placeholder opacity: 60%
+
+---
+
+## 🔘 Primary Button
+
+* Height: **48px**
+* Radius: **999px (pill)**
+* Background: Accent Primary
+* Text: White
+* Hover: scale(1.02) + soft glow
+* Active: scale(0.98)
+
+Text: **Get OneMove**
+
+---
+
+## 📦 Result Cards
+
+* Radius: **16px**
+* Padding: **20px**
+* Gap between cards: **16px**
+* Background: Surface
+* Border: subtle
+
+### Highlight Card (OneMove)
+
+* Border: Accent color
+* Soft glow on appear
+
+---
+
+## ✨ Animations
+
+* Duration: **200–300ms**
+* Easing: ease-out
+
+### Allowed:
+
+* Fade + slide-up for cards
+* Subtle pulse on updated text (refinement)
+* Glow on OneMove card
+
+### Forbidden:
+
+* Bounce
+* Typing indicators
+* Chat bubbles
+* Infinite scroll
+
+---
+
+## 🧠 Refinement Panel
+
+* Appears **below cards**
+* Smaller input (80px)
+* Disabled after one use
+* Label: *Refine for clarity (optional)*
+
+---
+
+# 3️⃣ DEMO SCRIPT (JUDGE-READY, 60–90 SECONDS)
+
+This is **exactly what you say and do**.
+
+---
+
+## 🎤 Demo Flow
+
+### (5 sec) Opening
+
+> “People don’t get stuck because they lack ideas.
+> They get stuck because they have too many.”
+
+---
+
+### (15 sec) Show Input
+
+Type messy thoughts live:
+
+> “I have too many things to do, I don’t know what to focus on, I feel pressure and I keep delaying.”
+
+Click **Get OneMove**.
+
+---
+
+### (20 sec) Show Output
+
+Point to each card:
+
+> “OneMove doesn’t chat.
+> It compresses everything into clarity.”
+
+* Core problem → point
+* Control vs no control → point
+* OneMove → pause here
+
+> “This is the only thing I need to do in the next hour.”
+
+---
+
+### (15 sec) Show Refinement
+
+Click refine panel.
+Type:
+
+> “I’m still hesitating.”
+
+Submit.
+
+Cards subtly update.
+
+> “Notice: it didn’t add options.
+> It sharpened the same action.”
+
+---
+
+### (10 sec) Close
+
+> “OneMove knows when to stop talking.
+> Clarity → action → done.”
+
+Stop.
+
+---
+
+## 🏁 FINAL TRUTH (NO FLUFF)
+
+You now have:
+
+* ✅ A **disciplined AI brain**
+* ✅ A **premium, calm UI**
+* ✅ A **killer demo judges will remember**
+
+Most teams build *more*.
+You built **restraint**.
+
+That’s rare.
+
+If you want next:
+
+* I can help you **code the prompt + UI wiring**
+* Or prep **Q&A answers judges may ask**
+
+Say the word.
