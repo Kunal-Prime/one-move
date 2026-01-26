@@ -59,11 +59,11 @@ export default function Home() {
             className="w-full max-w-[800px] text-center z-10"
           >
             {/* Header */}
-            <header className="mb-12">
+            <header className="mb-16">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-indigo-500 font-semibold tracking-[0.2em] uppercase text-sm mb-4"
+                className="text-indigo-400 font-bold tracking-[0.3em] uppercase text-xs mb-6 opacity-80"
               >
                 The Clarity Engine
               </motion.div>
@@ -71,7 +71,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-[48px] sm:text-[84px] font-extrabold text-white tracking-tighter mb-4 leading-none bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-500"
+                className="text-[64px] sm:text-[100px] font-black tracking-tighter mb-6 leading-[0.9] shimmer-text"
               >
                 A Space to Breathe
               </motion.h1>
@@ -79,16 +79,16 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-xl sm:text-2xl text-slate-400 font-medium max-w-2xl mx-auto"
+                className="text-2xl sm:text-3xl text-white/40 font-medium max-w-3xl mx-auto leading-tight"
               >
-                AI Decision Made Simple. Transform your messy thoughts into one concrete move.
+                Transform your messy thoughts into one concrete move.
               </motion.p>
             </header>
 
             {/* Main Input Area */}
-            <main className="w-full space-y-8">
-              <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2.1rem] blur opacity-20 group-focus-within:opacity-40 transition duration-1000"></div>
+            <main className="w-full space-y-12">
+              <div className="relative group glow-hover">
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2.6rem] blur-xl opacity-0 group-focus-within:opacity-20 transition duration-1000"></div>
                 <textarea
                   value={brainDump}
                   onChange={(e) => setBrainDump(e.target.value)}
@@ -99,34 +99,24 @@ export default function Home() {
               </div>
 
               {/* Controls */}
-              <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-col items-center gap-8">
                 <button
                   onClick={handleSubmit}
                   disabled={!brainDump.trim() || createMove.isPending}
-                  className="btn-primary min-w-[280px] relative overflow-hidden group"
+                  className="btn-primary min-w-[320px] relative overflow-hidden group glow-hover"
                 >
-                  <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
                   {createMove.isPending ? (
-                    <div className="flex items-center justify-center gap-3">
-                      <Loader2 className="w-6 h-6 animate-spin" />
-                      <span>Processing...</span>
+                    <div className="flex items-center justify-center gap-4">
+                      <Loader2 className="w-7 h-7 animate-spin" />
+                      <span>Distilling...</span>
                     </div>
                   ) : (
-                    "Start Creating Clarity"
+                    "Create Clarity"
                   )}
                 </button>
               </div>
             </main>
-
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500 text-sm animate-bounce"
-            >
-              <span>Scroll to explore</span>
-              <div className="w-px h-8 bg-gradient-to-b from-slate-500 to-transparent"></div>
-            </motion.div>
           </motion.div>
         ) : (
           <OutputCard 
