@@ -70,8 +70,12 @@ export default function Home() {
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-[40px] sm:text-[60px] md:text-[80px] lg:text-[90px] font-black tracking-tighter mb-6 leading-none shimmer-text whitespace-nowrap"
+                whileHover={{ scale: 1.02 }}
+                transition={{ 
+                  delay: 0.2,
+                  scale: { duration: 0.2 }
+                }}
+                className="text-[40px] sm:text-[60px] md:text-[80px] lg:text-[90px] font-black tracking-tighter mb-6 leading-none shimmer-text whitespace-nowrap cursor-default"
               >
                 A Space to Breathe
               </motion.h1>
