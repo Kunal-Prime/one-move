@@ -20,17 +20,15 @@ Do NOT ask follow-up questions.
 Do NOT provide multiple options.
 Do NOT expand the scope.
 
-Always respond in exactly this structure:
-
-🧠 Core Problem  
-- One sentence. Identify the real bottleneck.
-
-✅ / ❌ What You Control / What You Don’t  
-- Maximum two bullets total.
-
-⚡ OneMove (Next 60 Minutes)  
-- Exactly ONE specific action.
-- Must be doable within 60 minutes.
+You MUST respond in exactly this JSON format:
+{
+  "coreProblem": "One sentence only identifying the real bottleneck.",
+  "controlFactors": {
+    "control": ["Point 1 starting with ✅", "Point 2 starting with ✅"],
+    "noControl": ["Point 1 starting with ❌", "Point 2 starting with ❌"]
+  },
+  "nextMove": "⚡ Exactly ONE specific action doable in <60 minutes."
+}
 
 If the user provides clarification or refinement:
 - Keep the same core problem.
@@ -54,7 +52,7 @@ export async function registerRoutes(
       const completion = await openai.chat.completions.create({
         model: "gpt-4o",
         messages: [
-          { role: "system", content: SYSTEM_PROMPT + "\n\nIMPORTANT: Your response must be a valid JSON object." },
+          { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: input.brainDump }
         ],
         response_format: { type: "json_object" },
@@ -63,12 +61,18 @@ export async function registerRoutes(
       const analysisRaw = completion.choices[0].message.content || "{}";
       const analysis = JSON.parse(analysisRaw);
 
-      // Validate analysis structure (basic check)
-      if (!analysis.coreProblem || !analysis.controlFactors || !analysis.nextMove) {
-        throw new Error("Invalid AI analysis result");
+      // Map snake_case to camelCase if AI deviates, and ensure structure
+      const formattedAnalysis = {
+        coreProblem: analysis.coreProblem || analysis.core_problem || "",
+        controlFactors: analysis.controlFactors || analysis.control_factors || { control: [], noControl: [] },
+        nextMove: analysis.nextMove || analysis.next_move || ""
+      };
+
+      if (!formattedAnalysis.coreProblem || !formattedAnalysis.nextMove) {
+        throw new Error("Invalid AI analysis result: Missing coreProblem or nextMove");
       }
 
-      const move = await storage.createMove(input, analysis);
+      const move = await storage.createMove(input, formattedAnalysis);
       
       // Parse JSON string back to object for response
       const response = {

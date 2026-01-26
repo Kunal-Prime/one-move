@@ -96,6 +96,14 @@ export default function Home() {
                 <textarea
                   value={brainDump}
                   onChange={(e) => setBrainDump(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      if (brainDump.trim() && !createMove.isPending) {
+                        handleSubmit();
+                      }
+                    }
+                  }}
                   placeholder="What's weighing on your mind?"
                   className="calm-input relative"
                   disabled={createMove.isPending}
