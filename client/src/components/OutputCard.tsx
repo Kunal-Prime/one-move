@@ -28,62 +28,61 @@ export function OutputCard({ move, onComplete, isCompleting, onRestart }: Output
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="w-full max-w-[800px] mt-8 bg-card/40 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-10 shadow-[0_0_80px_rgba(0,0,0,0.6)]"
+      className="w-full max-w-[800px] bg-[#1A1D23] border border-white/5 rounded-[2rem] p-8 sm:p-10 shadow-2xl relative overflow-hidden"
     >
+      <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+        <Check className="w-24 h-24" />
+      </div>
+
       {/* Core Problem Section */}
-      <div className="mb-10">
-        <h3 className="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-4">
-          Core Problem
+      <div className="mb-8">
+        <h3 className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mb-4">
+          🧠 Core Problem
         </h3>
-        <p className="text-2xl text-white leading-tight font-bold tracking-tight">
+        <p className="text-xl sm:text-2xl text-[#EAEAF0] leading-tight font-semibold tracking-tight">
           {move.coreProblem}
         </p>
       </div>
 
-      <div className="h-px bg-white/5 my-8" />
-
       {/* Control / No Control Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
-        <div>
-          <h3 className="text-xs font-bold text-blue-400 uppercase tracking-[0.2em] mb-5">
-            What You Control
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
+        <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+          <h3 className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mb-4">
+            ✅ What You Control
           </h3>
           <ul className="space-y-3">
             {controlFactors.control.map((item: string, i: number) => (
-              <li key={i} className="flex items-start gap-3 text-slate-300">
-                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 flex-shrink-0" />
-                <span className="text-lg leading-snug">{item}</span>
+              <li key={i} className="flex items-start gap-3 text-[#A0A6B3]">
+                <span className="text-base leading-snug">{item}</span>
               </li>
             ))}
           </ul>
         </div>
         
-        <div>
-          <h3 className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] mb-5">
-            What You Don't
+        <div className="p-6 rounded-2xl bg-white/[0.01] border border-white/5">
+          <h3 className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mb-4">
+            ❌ What You Don't
           </h3>
           <ul className="space-y-3">
             {controlFactors.noControl.map((item: string, i: number) => (
-              <li key={i} className="flex items-start gap-3 text-slate-500">
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-700 mt-2 flex-shrink-0" />
-                <span className="text-lg leading-snug italic">{item}</span>
+              <li key={i} className="flex items-start gap-3 text-white/20">
+                <span className="text-base leading-snug italic">{item}</span>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      <div className="h-px bg-white/5 my-8" />
-
       {/* Next Move Section */}
-      <div className="mb-12 p-8 rounded-3xl bg-blue-500/5 border border-blue-500/10">
-        <h3 className="text-xs font-bold text-blue-400 uppercase tracking-[0.2em] mb-4">
-          Your Next 60-Minute Move
+      <div className="mb-10 p-8 rounded-[1.5rem] bg-[#667EEA]/5 border border-[#667EEA]/20 glow-indigo relative group">
+        <div className="absolute inset-0 bg-[#667EEA]/5 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <h3 className="text-[10px] font-bold text-[#667EEA] uppercase tracking-[0.3em] mb-4 relative z-10">
+          ⚡ OneMove (Next 60 Minutes)
         </h3>
-        <p className="text-3xl text-white font-black leading-tight tracking-tighter">
+        <p className="text-2xl sm:text-3xl text-white font-black leading-tight tracking-tighter relative z-10">
           {move.nextMove}
         </p>
       </div>

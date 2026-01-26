@@ -1,0 +1,136 @@
+// Home.jsx (React functional component)
+import React, { useState } from "react";
+
+export default function Home() {
+  // States
+  const [userInput, setUserInput] = useState("");
+  const [refineInput, setRefineInput] = useState("");
+  const [results, setResults] = useState(null);
+  const [refinementUsed, setRefinementUsed] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Dummy AI call function (replace with your API)
+  const fetchOneMove = async (text, refinement = "") => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          coreProblem: "🧠 You are overwhelmed with too many tasks.",
+          control: "✅ You can prioritize your tasks\n❌ You cannot do everything at once",
+          oneMove: "⚡ Focus on the single task that matters most in the next 60 mins."
+        });
+      }, 500); // simulate network delay
+    });
+  };
+
+  // Handle initial submission
+  const handleSubmit = async () => {
+    if (!userInput.trim()) return;
+    setLoading(true);
+    const response = await fetchOneMove(userInput);
+    setResults(response);
+    setLoading(false);
+  };
+
+  // Handle refinement
+  const handleRefine = async () => {
+    if (!refineInput.trim() || refinementUsed) return;
+    setLoading(true);
+    const response = await fetchOneMove(userInput, refineInput);
+    setResults(response);
+    setRefinementUsed(true);
+    setRefineInput("");
+    setLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 p-6 text-gray-100">
+      <h1 className="text-3xl font-semibold mb-4 text-indigo-400">OneMove</h1>
+      <p className="mb-6 text-gray-400 text-center">
+        Transform mental chaos into one clear next step.
+      </p>
+
+      {/* User Input */}
+      <textarea
+        value={userInput}
+        onChange={(e) => setUserInput(e.target.value)}
+        className="w-full max-w-xl h-40 p-4 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-500 transition-all"
+        placeholder="Dump everything in your head. Messy is fine."
+      />
+
+      {/* Submit Button */}
+      <button
+        onClick={handleSubmit}
+        className="mt-4 w-full max-w-xl py-3 rounded-full bg-indigo-500 hover:scale-105 transform transition-all text-white font-semibold disabled:opacity-50"
+        disabled={loading}
+      >
+        {loading ? "Processing..." : "Get OneMove"}
+      </button>
+
+      {/* Results */}
+      {results && (
+        <div className="mt-8 w-full max-w-xl flex flex-col gap-4 animate-fadeIn">
+          {/* Core Problem */}
+          <div className="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md animate-slideUp">
+            <h2 className="font-semibold mb-2">Core Problem</h2>
+            <p>{results.coreProblem}</p>
+          </div>
+          {/* Control vs No Control */}
+          <div className="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md animate-slideUp">
+            <h2 className="font-semibold mb-2">What You Control / Don’t</h2>
+            <p>{results.control}</p>
+          </div>
+          {/* OneMove */}
+          <div className="p-4 bg-gray-800 rounded-lg border-l-4 border-indigo-500 shadow-md animate-slideUp">
+            <h2 className="font-semibold mb-2">Your OneMove (Next 60 Minutes)</h2>
+            <p>{results.oneMove}</p>
+          </div>
+
+          {/* Refinement Panel */}
+          {!refinementUsed && (
+            <div className="mt-4 flex flex-col gap-2">
+              <textarea
+                value={refineInput}
+                onChange={(e) => setRefineInput(e.target.value)}
+                className="w-full h-20 p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-500 transition-all"
+                placeholder="Optional: refine for clarity (one-time use)"
+              />
+              <button
+                onClick={handleRefine}
+                className="py-2 rounded-full bg-indigo-400 hover:scale-105 transform transition-all font-semibold"
+              >
+                Refine
+              </button>
+            </div>
+          )}
+
+          {/* Refinement Disabled */}
+          {refinementUsed && (
+            <p className="text-gray-400 italic text-center mt-2">
+              Refinement used. Take action now.
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Animations (Tailwind plugin or custom) */}
+      <style>
+        {`
+          @keyframes fadeIn {
+            from { opacity: 0; } 
+            to { opacity: 1; }
+          }
+          .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+          }
+          @keyframes slideUp {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+          }
+          .animate-slideUp {
+            animation: slideUp 0.3s ease-out forwards;
+          }
+        `}
+      </style>
+    </div>
+  );
+}

@@ -8,24 +8,33 @@ import type { Move } from "@shared/schema";
 export default function Home() {
   const [brainDump, setBrainDump] = useState("");
   const [currentMove, setCurrentMove] = useState<Move | null>(null);
+  const [refineInput, setRefineInput] = useState("");
+  const [refinementUsed, setRefinementUsed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const createMove = useCreateMove();
   const completeMove = useCompleteMove();
 
-  const handleSubmit = async () => {
-    if (!brainDump.trim()) return;
+  const handleSubmit = async (refinement: string = "") => {
+    const text = refinement ? `${brainDump}\n\nREFINEMENT: ${refinement}` : brainDump;
+    if (!text.trim()) return;
     
-    // Reset view if submitting again
-    setCurrentMove(null);
-    
+    setLoading(true);
     try {
-      const result = await createMove.mutateAsync({ brainDump });
+      const result = await createMove.mutateAsync({ brainDump: text });
       setCurrentMove(result);
+      if (refinement) {
+        setRefinementUsed(true);
+        setRefineInput("");
+      }
     } catch (error) {
-      // Error handled by hook toast
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleRefine = () => handleSubmit(refineInput);
 
   const handleComplete = async () => {
     if (!currentMove) return;
@@ -40,6 +49,8 @@ export default function Home() {
   const handleRestart = () => {
     setBrainDump("");
     setCurrentMove(null);
+    setRefinementUsed(false);
+    setRefineInput("");
   };
 
   return (
@@ -99,26 +110,26 @@ export default function Home() {
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault();
-                      if (brainDump.trim() && !createMove.isPending) {
+                      if (brainDump.trim() && !loading) {
                         handleSubmit();
                       }
                     }
                   }}
                   placeholder="What's weighing on your mind?"
                   className="calm-input relative"
-                  disabled={createMove.isPending}
+                  disabled={loading}
                 />
               </div>
 
               {/* Controls */}
               <div className="flex flex-col items-center gap-8">
                 <button
-                  onClick={handleSubmit}
-                  disabled={!brainDump.trim() || createMove.isPending}
+                  onClick={() => handleSubmit()}
+                  disabled={!brainDump.trim() || loading}
                   className="btn-primary min-w-[320px] relative overflow-hidden group glow-hover"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-                  {createMove.isPending ? (
+                  {loading ? (
                     <div className="flex items-center justify-center gap-4">
                       <Loader2 className="w-7 h-7 animate-spin" />
                       <span>Distilling...</span>
@@ -131,13 +142,61 @@ export default function Home() {
             </main>
           </motion.div>
         ) : (
-          <OutputCard 
-            key="output-card"
-            move={currentMove} 
-            onComplete={handleComplete}
-            isCompleting={completeMove.isPending}
-            onRestart={handleRestart}
-          />
+          <div className="w-full max-w-[800px] flex flex-col items-center gap-8 z-10 py-12">
+            <OutputCard 
+              key="output-card"
+              move={currentMove} 
+              onComplete={handleComplete}
+              isCompleting={completeMove.isPending}
+              onRestart={handleRestart}
+            />
+
+            <AnimatePresence>
+              {!refinementUsed ? (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="w-full space-y-4"
+                >
+                  <div className="text-center">
+                    <span className="text-sm font-bold text-white/40 uppercase tracking-widest">Optional: refine for clarity</span>
+                  </div>
+                  <div className="relative group">
+                    <textarea
+                      value={refineInput}
+                      onChange={(e) => setRefineInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault();
+                          if (refineInput.trim() && !loading) {
+                            handleRefine();
+                          }
+                        }
+                      }}
+                      className="w-full h-24 p-6 rounded-3xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white placeholder-white/20 transition-all resize-none"
+                      placeholder="What feels unclear? (one-time use)"
+                      disabled={loading}
+                    />
+                  </div>
+                  <button
+                    onClick={handleRefine}
+                    disabled={!refineInput.trim() || loading}
+                    className="w-full py-4 rounded-full bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 text-indigo-300 font-bold transition-all disabled:opacity-50"
+                  >
+                    {loading ? "Refining..." : "Refine Move"}
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-white/30 italic text-sm"
+                >
+                  Clarity achieved. Take the move.
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
         )}
       </AnimatePresence>
     </div>
