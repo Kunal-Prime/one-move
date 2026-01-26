@@ -43,7 +43,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 relative">
+      <div className="absolute top-8 left-8">
+        <span className="text-xl font-bold tracking-tighter text-white/50 select-none">OneMove</span>
+      </div>
       <AnimatePresence mode="wait">
         {!currentMove ? (
           <motion.div 
