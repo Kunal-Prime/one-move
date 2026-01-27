@@ -53,6 +53,8 @@ export default function Home() {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 relative overflow-hidden">
       <div className="nebula-glow" />
+      <div className="planet planet-1" />
+      <div className="planet planet-2" />
       <div className="hero-orb" />
       <div className="absolute top-8 left-8 z-20">
         <span className="text-xl font-bold tracking-tighter text-white/50 select-none">OneMove</span>
