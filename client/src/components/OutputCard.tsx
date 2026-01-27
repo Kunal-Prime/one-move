@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { Check, Copy, RefreshCw } from "lucide-react";
+import { Check, Copy, RefreshCw, Loader2 } from "lucide-react";
 import type { Move } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
+import confetti from "canvas-confetti";
 
 interface OutputCardProps {
   move: Move;
@@ -24,6 +25,17 @@ export function OutputCard({ move, onComplete, isCompleting, onRestart }: Output
     toast({
       description: "Guidance copied to clipboard",
     });
+  };
+
+  const handleMarkDone = () => {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#667EEA', '#ffffff', '#A0A6B3'],
+      zIndex: 1000,
+    });
+    onComplete();
   };
 
   return (
@@ -90,12 +102,18 @@ export function OutputCard({ move, onComplete, isCompleting, onRestart }: Output
       {/* Actions */}
       <div className="flex flex-wrap items-center gap-4">
         <button
-          onClick={onComplete}
+          onClick={handleMarkDone}
           disabled={isCompleting || (move.isCompleted ?? false)}
           className="flex-1 min-w-[180px] inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-[0_0_30px_rgba(37,99,235,0.3)] transition-all duration-300 active:scale-95 disabled:opacity-50"
         >
-          <Check className="w-5 h-5" />
-          <span>{move.isCompleted ? "Completed" : "Mark Done"}</span>
+          {isCompleting ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <>
+              <Check className="w-5 h-5" />
+              <span>{move.isCompleted ? "Completed" : "Mark Done"}</span>
+            </>
+          )}
         </button>
 
         <button

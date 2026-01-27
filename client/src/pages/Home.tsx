@@ -24,7 +24,6 @@ export default function Home() {
       const result = await createMove.mutateAsync({ brainDump: text });
       setCurrentMove(result);
       if (refinement) {
-        setRefinementUsed(true);
         setRefineInput("");
       }
     } catch (error) {
@@ -49,7 +48,6 @@ export default function Home() {
   const handleRestart = () => {
     setBrainDump("");
     setCurrentMove(null);
-    setRefinementUsed(false);
     setRefineInput("");
   };
 
@@ -152,14 +150,14 @@ export default function Home() {
             />
 
             <AnimatePresence>
-              {!refinementUsed ? (
+              {!currentMove.isCompleted && (
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="w-full space-y-4"
                 >
                   <div className="text-center">
-                    <span className="text-sm font-bold text-white/40 uppercase tracking-widest">Optional: refine for clarity</span>
+                    <span className="text-sm font-bold text-white/40 uppercase tracking-widest">Refine for more clarity</span>
                   </div>
                   <div className="relative group">
                     <textarea
@@ -174,7 +172,7 @@ export default function Home() {
                         }
                       }}
                       className="w-full h-24 p-6 rounded-3xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-white placeholder-white/20 transition-all resize-none"
-                      placeholder="What feels unclear? (one-time use)"
+                      placeholder="What feels unclear? Refine as much as you need."
                       disabled={loading}
                     />
                   </div>
@@ -186,14 +184,6 @@ export default function Home() {
                     {loading ? "Refining..." : "Refine Move"}
                   </button>
                 </motion.div>
-              ) : (
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-white/30 italic text-sm"
-                >
-                  Clarity achieved. Take the move.
-                </motion.p>
               )}
             </AnimatePresence>
           </div>
