@@ -9,7 +9,6 @@ export default function Home() {
   const [brainDump, setBrainDump] = useState("");
   const [currentMove, setCurrentMove] = useState<Move | null>(null);
   const [refineInput, setRefineInput] = useState("");
-  const [refinementUsed, setRefinementUsed] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const createMove = useCreateMove();
@@ -61,47 +60,41 @@ export default function Home() {
         {!currentMove ? (
           <motion.div 
             key="input-form"
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-[800px] text-center z-10"
           >
-            {/* Header */}
             <header className="mb-16">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-indigo-400 font-bold tracking-[0.3em] uppercase text-xs mb-6 opacity-80"
               >
                 The Clarity Engine
               </motion.div>
               <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.02 }}
-                transition={{ 
-                  delay: 0.2,
-                  scale: { duration: 0.2 }
-                }}
+                transition={{ delay: 0.1 }}
                 className="text-[40px] sm:text-[60px] md:text-[80px] lg:text-[90px] font-black tracking-tighter mb-6 leading-none shimmer-text whitespace-nowrap cursor-default"
               >
                 A Space to Breathe
               </motion.h1>
               <motion.p 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.2 }}
                 className="text-2xl sm:text-3xl text-white/40 font-medium max-w-3xl mx-auto leading-tight"
               >
                 Transform your messy thoughts into one concrete move.
               </motion.p>
             </header>
 
-            {/* Main Input Area */}
             <main className="w-full space-y-12">
               <div className="relative group glow-hover">
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2.6rem] blur-xl opacity-0 group-focus-within:opacity-20 transition duration-1000"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2.6rem] blur-xl opacity-0 group-focus-within:opacity-20 transition duration-500"></div>
                 <textarea
                   value={brainDump}
                   onChange={(e) => setBrainDump(e.target.value)}
@@ -119,7 +112,6 @@ export default function Home() {
                 />
               </div>
 
-              {/* Controls */}
               <div className="flex flex-col items-center gap-8">
                 <button
                   onClick={() => handleSubmit()}
@@ -152,7 +144,7 @@ export default function Home() {
             <AnimatePresence>
               {!currentMove.isCompleted && (
                 <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="w-full space-y-4"
                 >
