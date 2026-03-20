@@ -88,14 +88,15 @@ export function registerRoutes(
           nextMove: analysis.nextMove || analysis.next_move || "Take a deep breath and re-submit if needed."
         };
       } catch (aiErr) {
-        console.error("POST /api/moves - AI error/timeout, using fallback:", aiErr);
+        const errorMsg = aiErr instanceof Error ? aiErr.message : String(aiErr);
+        console.error("POST /api/moves - AI error/timeout, using fallback:", errorMsg);
         formattedAnalysis = {
           coreProblem: "Service is currently experiencing high demand.",
           controlFactors: {
             control: ["✅ You can re-submit the request", "✅ You can try again in a few minutes"],
             noControl: ["❌ Instant AI processing at this moment"]
           },
-          nextMove: "⚡ Please wait a minute and try again for full AI analysis."
+          nextMove: `⚡ Error: ${errorMsg}. Please wait a minute and try again.`
         };
       }
 
