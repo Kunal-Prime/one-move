@@ -55,7 +55,7 @@ export function registerRoutes(
 
       try {
         console.log("POST /api/moves - initializing OpenAI...");
-        const openai = new OpenAI({
+        const client = new OpenAI({
           apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
           baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
         });
@@ -67,7 +67,7 @@ export function registerRoutes(
           setTimeout(() => reject(new Error("OpenAI timeout")), 8000)
         );
 
-        const completionPromise = openai.chat.completions.create({
+        const completionPromise = client.chat.completions.create({
           model: "gpt-4o",
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
