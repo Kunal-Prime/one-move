@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { moves } from './schema';
+import { moves } from './schema.js';
 
 // ============================================
 // SHARED ERROR SCHEMAS
