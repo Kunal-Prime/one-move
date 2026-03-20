@@ -6,11 +6,7 @@ import { type AnalysisResponse } from "../shared/schema.js";
 import { z } from "zod";
 import OpenAI from "openai";
 
-// Initialize OpenAI client using Replit AI integration env vars
-const openai = new OpenAI({
-  apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
-  baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
-});
+// OpenAI client will be initialized inside the route handler to prevent top-level crashes
 
 const SYSTEM_PROMPT = `You are OneMove.
 
@@ -58,6 +54,12 @@ export function registerRoutes(
       let formattedAnalysis: AnalysisResponse;
 
       try {
+        console.log("POST /api/moves - initializing OpenAI...");
+        const openai = new OpenAI({
+          apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+          baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+        });
+
         console.log("POST /api/moves - calling OpenAI with 8s timeout...");
         
         // Timeout promise
