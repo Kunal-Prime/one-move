@@ -83,7 +83,7 @@ app.use((req, res, next) => {
       serveStatic(app);
     }
   } else {
-    const { setupVite } = await import("./vite");
+    const { setupVite } = await import("./vite.js");
     await setupVite(httpServer, app);
   }
 
