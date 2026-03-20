@@ -51,8 +51,10 @@ export async function registerRoutes(
 
   app.post(api.moves.create.path, async (req, res) => {
     try {
+      console.log("POST /api/moves - request received:", req.body);
       const input = api.moves.create.input.parse(req.body);
       
+      console.log("POST /api/moves - calling OpenAI...");
       const completion = await openai.chat.completions.create({
         model: "gpt-4o",
         messages: [
@@ -62,6 +64,7 @@ export async function registerRoutes(
         response_format: { type: "json_object" },
       });
 
+      console.log("POST /api/moves - OpenAI response received");
       const analysisRaw = completion.choices[0].message.content || "{}";
       const analysis = JSON.parse(analysisRaw);
 
@@ -73,9 +76,11 @@ export async function registerRoutes(
       };
 
       if (!formattedAnalysis.coreProblem || !formattedAnalysis.nextMove) {
+        console.error("POST /api/moves - Invalid AI analysis:", analysis);
         throw new Error("Invalid AI analysis result: Missing coreProblem or nextMove");
       }
 
+      console.log("POST /api/moves - saving to storage...");
       const move = await storage.createMove(input, formattedAnalysis);
       
       // Parse JSON string back to object for response
@@ -84,16 +89,20 @@ export async function registerRoutes(
         parsedControlFactors: JSON.parse(move.controlFactors as string)
       };
 
+      console.log("POST /api/moves - success:", move.id);
       res.status(201).json(response);
     } catch (err) {
-      console.error("Move creation error:", err);
+      console.error("POST /api/moves - error:", err);
       if (err instanceof z.ZodError) {
         return res.status(400).json({
           message: err.errors[0].message,
           field: err.errors[0].path.join('.'),
         });
       }
-      res.status(500).json({ message: "Failed to process your request" });
+      res.status(500).json({ 
+        message: "Failed to process your request", 
+        error: err instanceof Error ? err.message : String(err) 
+      });
     }
   });
 
