@@ -41,10 +41,10 @@ If the user provides clarification or refinement:
 Tone: calm, neutral, direct.
 End after delivering clarity.`;
 
-export async function registerRoutes(
+export function registerRoutes(
   httpServer: Server,
   app: Express
-): Promise<Server> {
+): Server {
   
   app.get("/api/health", (_req, res) => {
     res.json({ status: "ok" });
