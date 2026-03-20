@@ -96,7 +96,7 @@ export function registerRoutes(
             control: ["✅ You can re-submit the request", "✅ You can try again in a few minutes"],
             noControl: ["❌ Instant AI processing at this moment"]
           },
-          nextMove: `⚡ Error: ${errorMsg}. Please wait a minute and try again.`
+          nextMove: "⚡ Please wait a minute and try again for full AI analysis."
         };
       }
 
