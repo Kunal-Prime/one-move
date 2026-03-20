@@ -1,5 +1,5 @@
 import { db } from "./db.js";
-import { moves, type Move, type CreateMoveRequest, type AnalysisResponse } from "@shared/schema.js";
+import { moves, type Move, type CreateMoveRequest, type AnalysisResponse } from "../shared/schema.js";
 import { eq } from "drizzle-orm";
 
 export interface IStorage {
