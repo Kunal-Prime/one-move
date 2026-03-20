@@ -45,6 +45,10 @@ export async function registerRoutes(
   app: Express
 ): Promise<Server> {
   
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
+  });
+
   app.post(api.moves.create.path, async (req, res) => {
     try {
       const input = api.moves.create.input.parse(req.body);
