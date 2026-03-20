@@ -4,11 +4,16 @@ import * as schema from "../shared/schema.js";
 
 const { Pool } = pg;
 
+let db: ReturnType<typeof drizzle> | undefined;
+let pool: Pool | undefined;
+
 if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
+  console.log(
+    "DATABASE_URL not set. Database operations will be unavailable, falling back to MemStorage.",
   );
+} else {
+  pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  db = drizzle(pool, { schema });
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool, { schema });
+export { db, pool };
