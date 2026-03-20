@@ -15,6 +15,21 @@ export const moves = pgTable("moves", {
   theme: text("theme").default("dark"),
 });
 
+
+export const conversations = pgTable("conversations", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const messages = pgTable("messages", {
+  id: serial("id").primaryKey(),
+  conversationId: integer("conversation_id").notNull(),
+  role: text("role").notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 // === BASE SCHEMAS ===
 export const insertMoveSchema = createInsertSchema(moves).omit({ 
   id: true, 
