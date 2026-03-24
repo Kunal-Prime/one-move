@@ -5,7 +5,7 @@ import * as schema from "../shared/schema.js";
 const { Pool } = pg;
 
 let db: ReturnType<typeof drizzle> | undefined;
-let pool: Pool | undefined;
+let pool: pg.Pool | undefined;
 
 if (!process.env.DATABASE_URL) {
   console.log(
