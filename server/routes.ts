@@ -57,7 +57,7 @@ export function registerRoutes(
         console.log("POST /api/moves - initializing OpenAI...");
         const client = new OpenAI({
           apiKey: process.env.OPENAI_API_KEY || process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
-          baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+          baseURL: process.env.OPENAI_BASE_URL || process.env.AI_INTEGRATIONS_OPENAI_BASE_URL || "https://api.openai.com/v1",
         });
 
         console.log("POST /api/moves - calling OpenAI with 8s timeout...");
@@ -68,7 +68,7 @@ export function registerRoutes(
         );
 
         const completionPromise = client.chat.completions.create({
-          model: "gpt-4o-mini",
+          model: process.env.OPENAI_MODEL || "gpt-4o-mini",
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: input.brainDump }
